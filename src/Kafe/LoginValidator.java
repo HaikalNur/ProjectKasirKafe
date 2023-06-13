@@ -1,10 +1,12 @@
 package Kafe;
 
+import Kafe.Menu;
 import java.util.Scanner;
 
 public class LoginValidator {
     private LoginManager loginManager;
     private User loggedInUser;
+    private Waitress waitress;
 
     public LoginValidator() {
         loginManager = new LoginManager();
@@ -28,9 +30,25 @@ public class LoginValidator {
                 loginManager.displayUsersByClass(Waitress.class);
                 loginManager.displayUsersByClass(Kasir.class);
             } else if (loggedInUser instanceof Waitress) {
-                
+                boolean done = false;
+                waitress = new Waitress(loggedInUser.getUsername(), loggedInUser.getPassword());
+                Menu menu = new Menu();
+
+                while (!done) {
+                    waitress.takeOrder(menu);
+
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Are you done taking orders? (Y/N)");
+                    String choice = scanner.nextLine();
+                    if (choice.equalsIgnoreCase("Y")) {
+                        done = true;
+                    }
+                }
+
+                // View all orders
+                waitress.viewOrders();
             } else if (loggedInUser instanceof Kasir) {
-                
+
             }
         } else {
             System.out.println("Invalid username or password. Please try again.");
@@ -43,8 +61,5 @@ public class LoginValidator {
         return scanner.nextLine();
     }
 
-    public static void main(String[] args) {
-        LoginValidator loginValidator = new LoginValidator();
-        loginValidator.validateLogin();
-    }
+    
 }
