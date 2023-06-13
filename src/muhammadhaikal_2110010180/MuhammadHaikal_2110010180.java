@@ -84,7 +84,9 @@ public class MuhammadHaikal_2110010180 {
         
         //Login Prompt
         LoginValidator loginValidator = new LoginValidator();
-        loginValidator.validateLogin();   
+        loginValidator.validateLogin();
+       
+        
     } 
     
 }

@@ -23,16 +23,28 @@ public class LoginManager {
         return false;
     }
 
-    public void displayUsersByClass(User loggedInUser, Class<?> clazz) {
-        if (loggedInUser instanceof Admin) {
-            System.out.println("Users of type " + clazz.getSimpleName() + ":");
+    public void displayUsersByClass(Class<?> clazz) {
+        if (Admin.class.equals(clazz)) {
+            System.out.println("Users of type Admin:");
             for (User user : userList) {
-                if (clazz.isInstance(user)) {
+                if (user instanceof Admin) {
                     System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword());
                 }
             }
-        } else {
-            System.out.println("Access denied. Only administrators can view user lists.");
+        } else if (Waitress.class.equals(clazz)) {
+            System.out.println("Users of type Waitress:");
+            for (User user : userList) {
+                if (user instanceof Waitress) {
+                    System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword());
+                }
+            }
+        } else if (Kasir.class.equals(clazz)) {
+            System.out.println("Users of type Kasir:");
+            for (User user : userList) {
+                if (user instanceof Kasir) {
+                    System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword());
+                }
+            }
         }
     }
 

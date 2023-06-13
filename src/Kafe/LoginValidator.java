@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class LoginValidator {
     private LoginManager loginManager;
+    private User loggedInUser;
 
     public LoginValidator() {
         loginManager = new LoginManager();
-        //UserLists
+        // User lists
         loginManager.addUser(new Admin("admin1", "adminpass1"));
         loginManager.addUser(new Waitress("emp1", "emppass1"));
         loginManager.addUser(new Kasir("manager1", "managerpass1"));
@@ -18,17 +19,19 @@ public class LoginValidator {
         String inputPassword = getInput("Enter password: ");
 
         if (loginManager.isValidUser(inputUsername, inputPassword)) {
-            User loggedInUser = loginManager.getUser(inputUsername);
+            loggedInUser = loginManager.getUser(inputUsername);
             System.out.println("Login successful!");
-            System.out.println("=========================================");
 
             // Display user lists based on the user's role
-            loginManager.displayUsersByClass(loggedInUser, Admin.class);
-            System.out.println("-----------------------------------------");
-            loginManager.displayUsersByClass(loggedInUser, Waitress.class);
-            System.out.println("-----------------------------------------");
-            loginManager.displayUsersByClass(loggedInUser, Kasir.class);
-            System.out.println("-----------------------------------------");
+            if (loggedInUser instanceof Admin) {
+                loginManager.displayUsersByClass(Admin.class);
+                loginManager.displayUsersByClass(Waitress.class);
+                loginManager.displayUsersByClass(Kasir.class);
+            } else if (loggedInUser instanceof Waitress) {
+                
+            } else if (loggedInUser instanceof Kasir) {
+                
+            }
         } else {
             System.out.println("Invalid username or password. Please try again.");
         }
